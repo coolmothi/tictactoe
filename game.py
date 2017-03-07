@@ -1,15 +1,18 @@
-class board:
+import copy
+
+class game:
     def __init__(self, X_player, O_player):
         self.board=[[0, 0, 0], [0,0,0], [0, 0, 0]]
         self.xp = X_player
         self.op = O_player
         self.winner = 0
+        self.final_board=[[0, 0, 0], [0,0,0], [0, 0, 0]]
+        self.gh=[]
+        self.gh.append(self.board)
 
-    def set_square(self, player, x , y):
-        if player == self.xp:
-            self.board[x][y]=1
-        else:
-            self.board[x][y]=2
+    def set_square(self, value, x , y):
+        self.board[x][y]=value
+        self.gh.append(copy.deepcopy(self.board))
 
     def cur_board(self):
         return self.board
@@ -165,3 +168,17 @@ class board:
         return x1, x2, x3, x4, x5, x6
 
 
+    def print_board(self, board):
+        rowres=''
+        for i in range(3):
+            rowres=''
+            for j in range(3):
+                if board[i][j] == 1:
+                    rowres= rowres+" x |"
+                elif board[i][j] == 2:
+                    rowres= rowres+" 0 |"
+                else:
+                    rowres= rowres+"   |"
+
+            print rowres
+            print 12*"-"
